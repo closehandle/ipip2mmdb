@@ -17,36 +17,19 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Get dependencies
+    - name: Fetch IP List
       run: |
-        go get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
-    - name: Create dist folder
-      run: mkdir -p dist
+          bash fetch.sh
 
-    - name: buildAction
-      run: ./build.sh
-
-    - name: Get IP List
-      run: bash fetch.sh
-
-    - name: Transform china_ip_list to MaxMind mmdb
+    - name: Convert to MaxMind
       run: |
         go run .
 
-    - name: Set env variables
-      run: |
-        echo "RELEASE_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
-        echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
+    - name: Set environment
       shell: bash
-
-    - name: Generate version file
       run: |
-          cd dist
-          echo $TAG_NAME > version
+        echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
+        echo "RELEASE_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
 
     - name: Release and upload
       uses: softprops/action-gh-release@v1
