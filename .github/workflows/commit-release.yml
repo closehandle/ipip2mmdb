@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Set up Go
+    - name: Go
       uses: actions/setup-go@v2
 
-    - name: Check out code into the Go module directory
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Fetch IP List
@@ -31,7 +31,7 @@ jobs:
         echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
         echo "RELEASE_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
 
-    - name: Release and upload
+    - name: Release
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ env.RELEASE_NAME }}
