@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+git clone https://github.com/FvDxxx/pfxaggr aggr && cd aggr && make -j$(nproc) && mv -f pfxaggr .. && cd .. && rm -fr aggr
+
 wget -O misakaio_chnroutes4.txt https://cdn.jsdelivr.net/gh/misakaio/chnroutes2@master/chnroutes.txt
 wget -O gaoyifan_chnroutes4.txt https://cdn.jsdelivr.net/gh/gaoyifan/china-operator-ip@ip-lists/china.txt
 wget -O 17mon_chnroutes4.txt    https://cdn.jsdelivr.net/gh/17mon/china_ip_list@master/china_ip_list.txt
