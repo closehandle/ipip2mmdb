@@ -18,4 +18,20 @@ rm -f ipv6.txt
 cat gaoyifan_chnroutes6.txt >> ipv6.txt
 ./pfxaggr < ipv6.txt > chnroutes6
 rm -f *.txt
+
+while read -r i; do
+    if [[ "$i" == \#* ]]; then
+        continue
+    fi
+
+    echo "ip firewall address-list add list=China address=$i" >> chnroutes4.rsc
+done < chnroutes4
+
+while read -r i; do
+    if [[ "$i" == \#* ]]; then
+        continue
+    fi
+
+    echo "ipv6 firewall address-list add list=China address=$i" >> chnroutes6.rsc
+done < chnroutes6
 exit 0
