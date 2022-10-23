@@ -42,7 +42,7 @@ func main() {
 	}
 
 	{
-		file, err := os.Open("ipv4.txt")
+		file, err := os.Open("chnroutes4")
 		if err != nil {
 			log.Fatalf("fail to open %s\n", err)
 		}
@@ -64,7 +64,7 @@ func main() {
 	}
 
 	{
-		file, err := os.Open("ipv6.txt")
+		file, err := os.Open("chnroutes6")
 		if err != nil {
 			log.Fatalf("fail to open %s\n", err)
 		}
