@@ -37,6 +37,8 @@ jobs:
         run: |
           mkdir publish
           cp -f Country.mmdb publish
+          cp -f chnroutes4 publish
+          cp -f chnroutes6 publish
           cd publish
           git init
           git config --local user.name "${{ github.actor }}"
