@@ -18,10 +18,12 @@ cat clang_chnroutes6.txt    >> ipv6.txt
 cat gaoyifan_chnroutes6.txt >> ipv6.txt
 ./pfxaggr < ipv6.txt > chnroutes6
 
+echo 'ip firewall address-list remove [find list=China]' > chnroutes4.rsc
 while read -r i; do
     echo "ip firewall address-list add list=China address=$i" >> chnroutes4.rsc
 done < chnroutes4
 
+echo 'ipv6 firewall address-list remove [find list=China]' > chnroutes6.rsc
 while read -r i; do
     echo "ipv6 firewall address-list add list=China address=$i" >> chnroutes6.rsc
 done < chnroutes6
