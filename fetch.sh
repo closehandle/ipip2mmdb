@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+go mod tidy || exit $?
+
 git clone https://github.com/FvDxxx/pfxaggr aggr && cd aggr && make -j$(nproc) && mv -f pfxaggr .. && cd .. && rm -fr aggr
 rm -f ipv4.txt ipv6.txt
 
