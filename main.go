@@ -89,9 +89,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("fail to create output file %v\n", err)
 	}
+	defer file.Close()
 
-	_, err = mmdb.WriteTo(file)
-	if err != nil {
+	if _, err := mmdb.WriteTo(file); err != nil {
 		log.Fatalf("fail to write to file %v\n", err)
 	}
 }

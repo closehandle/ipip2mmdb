@@ -5,16 +5,15 @@ on:
     branches: 
       - master
   schedule:
-    - cron: 0 8 * * *
+    - cron: 0 0 * * *
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
       - name: Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
 
       - name: Checkout
         uses: actions/checkout@v3
