@@ -17,11 +17,15 @@ cat apnic_chnroutes6.txt    >> ipv6.txt
 cat clang_chnroutes6.txt    >> ipv6.txt
 ./pfxaggr < ipv6.txt > chnroutes6
 
+echo 'create chnroutes4 hash:net family inet' > chnroutes4.ipset
+cat chnroutes4 | awk '{printf("add chnroutes4 %s\n", $1)}' >> chnroutes4.ipset
+echo "create chnroutes6 hash:net family inet6" > chnroutes6.ipset
+cat chnroutes6 | awk '{printf("add chnroutes6 %s\n", $1)}' >> chnroutes6.ipset
+
 echo 'ip firewall address-list remove [find list=China]' > chnroutes4.rsc
 while read -r i; do
     echo "ip firewall address-list add list=China address=$i" >> chnroutes4.rsc
 done < chnroutes4
-
 echo 'ipv6 firewall address-list remove [find list=China]' > chnroutes6.rsc
 while read -r i; do
     echo "ipv6 firewall address-list add list=China address=$i" >> chnroutes6.rsc
