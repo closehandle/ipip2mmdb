@@ -41,6 +41,8 @@ jobs:
           Country.mmdb
           chnroutes4
           chnroutes6
+          chnroutes4.ipset
+          chnroutes6.ipset
           chnroutes4.rsc
           chnroutes6.rsc
       env:
