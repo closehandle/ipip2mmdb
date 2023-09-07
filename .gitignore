@@ -1,3 +1,5 @@
-.idea/
-dist/
-.DS_Store
+*.txt
+chnroutes4*
+chnroutes6*
+Country.mmdb
+pfxaggr
