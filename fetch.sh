@@ -40,6 +40,7 @@ for i in $gfwlist; do
 done
 
 gfwlist=$(cat gfwlist.txt | sort -n | uniq)
+echo "ip dns static remove [find address-list=gfwlist]" > gfwlist.rsc
 for i in $gfwlist; do
     echo "ip dns static add address-list=gfwlist match-subdomain=yes name=\"${i}\" type=FWD" >> gfwlist.rsc
 done
