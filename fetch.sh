@@ -30,4 +30,12 @@ echo 'ipv6 firewall address-list remove [find list=China]' > chnroutes6.rsc
 while read -r i; do
     echo "ipv6 firewall address-list add list=China address=$i" >> chnroutes6.rsc
 done < chnroutes6
+
+gfwlist=$(curl -fsSL https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt)
+[[ $? -ne 0 ]] && exit 1
+
+gfwlist=$(echo "${gfwlist}" | base64 -d | grep -vE '^\!|\[|^@@|(https?://){0,1}[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | sed -r 's#^(\|\|?)?(https?://)?##g' | sed -r 's#/.*$|%2F.*$##g' | grep -E '([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)' | sed -r 's#^(([a-zA-Z0-9]*\*[-a-zA-Z0-9]*)?(\.))?([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)(\*[a-zA-Z0-9]*)?#\4#g')
+for i in $gfwlist; do
+    echo "ip dns static add address-list=gfwlist match-subdomain=yes name=\"${i}\" type=FWD" >> gfwlist.rsc
+done
 exit 0
