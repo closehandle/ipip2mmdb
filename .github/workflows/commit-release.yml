@@ -45,6 +45,8 @@ jobs:
           chnroutes6.ipset
           chnroutes4.rsc
           chnroutes6.rsc
+          gfwlist
           gfwlist.rsc
+          gfwlist.list
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
