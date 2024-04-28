@@ -33,15 +33,23 @@ done < chnroutes6
 
 gfwlist=$(curl -fsSL https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt)
 [[ $? -ne 0 ]] && exit 1
-
 gfwlist=$(echo "${gfwlist}" | base64 -d | grep -vE '^\!|\[|^@@|(https?://){0,1}[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | sed -r 's#^(\|\|?)?(https?://)?##g' | sed -r 's#/.*$|%2F.*$##g' | grep -E '([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)' | sed -r 's#^(([a-zA-Z0-9]*\*[-a-zA-Z0-9]*)?(\.))?([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)(\*[a-zA-Z0-9]*)?#\4#g')
 for i in $gfwlist; do
     echo "${i}" >> gfwlist.txt
 done
-
 gfwlist=$(cat gfwlist.txt | sort -n | uniq)
+
+for i in $gfwlist; do
+    echo "${i}" >> gfwlist
+done
+
 echo "ip dns static remove [find address-list=gfwlist]" > gfwlist.rsc
 for i in $gfwlist; do
     echo "ip dns static add address-list=gfwlist match-subdomain=yes name=\"${i}\" type=FWD" >> gfwlist.rsc
 done
+
+for i in $gfwlist; do
+    echo "DOMAIN-SUFFIX,${i}" >> gfwlist.list
+done
+
 exit 0
