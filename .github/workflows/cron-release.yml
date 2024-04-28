@@ -42,7 +42,9 @@ jobs:
           cp -f chnroutes6.ipset publish
           cp -f chnroutes4.rsc publish
           cp -f chnroutes6.rsc publish
+          cp -f gfwlist publish
           cp -f gfwlist.rsc publish
+          cp -f gfwlist.list publish
           cd publish
           git init
           git config --local user.name "${{ github.actor }}"
