@@ -5,7 +5,11 @@ go mod tidy || exit $?
 git clone https://github.com/FvDxxx/pfxaggr aggr && cd aggr && make -j$(nproc) && mv -f pfxaggr .. && cd .. && rm -fr aggr
 rm -f ipv4.txt ipv6.txt
 
-abuseips=$(curl -fsSL https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/main/abuseipdb-s100-30d.ipv4 | grep -Ev '^#')
+curl -fsSL https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/main/abuseipdb-s100-30d.ipv4 | grep -Ev '^#' > abuseips
+./pfxaggr < abuseips > abuseips.new
+mv -f abuseips.new abuseips
+
+abuseips=$(cat abuseips)
 echo 'create abuseips hash:net family inet' > abuseips.ipset
 for i in $abuseips; do
     echo "add abuseips ${i}" >> abuseips.ipset
