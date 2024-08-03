@@ -5,6 +5,16 @@ go mod tidy || exit $?
 git clone https://github.com/FvDxxx/pfxaggr aggr && cd aggr && make -j$(nproc) && mv -f pfxaggr .. && cd .. && rm -fr aggr
 rm -f ipv4.txt ipv6.txt
 
+abuseips=$(curl -fsSL https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/main/abuseipdb-s100-30d.ipv4 | grep -Ev '^#')
+echo 'create abuseips hash:net family inet' > abuseips.ipset
+for i in $abuseips; do
+    echo "add abuseips ${i}" >> abuseips.ipset
+fi
+echo 'ip firewall address-list remove [find list=abuseips]' > abuseips.rsc
+for i in $abuseips; do
+    echo "ip firewall address-list add list=abuseips address=${i}" >> abuseips.rsc
+fi
+
 wget -O misakaio_chnroutes4.txt https://cdn.jsdelivr.net/gh/misakaio/chnroutes2@master/chnroutes.txt
 wget -O 17mon_chnroutes4.txt    https://cdn.jsdelivr.net/gh/17mon/china_ip_list@master/china_ip_list.txt
 cat misakaio_chnroutes4.txt >> ipv4.txt
