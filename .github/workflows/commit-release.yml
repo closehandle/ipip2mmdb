@@ -39,6 +39,7 @@ jobs:
         prerelease: false
         files: |
           Country.mmdb
+          abuseips
           abuseips.ipset
           abuseips.rsc
           chnroutes4
