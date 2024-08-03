@@ -9,11 +9,11 @@ abuseips=$(curl -fsSL https://raw.githubusercontent.com/borestad/blocklist-abuse
 echo 'create abuseips hash:net family inet' > abuseips.ipset
 for i in $abuseips; do
     echo "add abuseips ${i}" >> abuseips.ipset
-fi
+done
 echo 'ip firewall address-list remove [find list=abuseips]' > abuseips.rsc
 for i in $abuseips; do
     echo "ip firewall address-list add list=abuseips address=${i}" >> abuseips.rsc
-fi
+done
 
 wget -O misakaio_chnroutes4.txt https://cdn.jsdelivr.net/gh/misakaio/chnroutes2@master/chnroutes.txt
 wget -O 17mon_chnroutes4.txt    https://cdn.jsdelivr.net/gh/17mon/china_ip_list@master/china_ip_list.txt
