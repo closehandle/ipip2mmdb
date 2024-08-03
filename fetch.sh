@@ -10,9 +10,9 @@ echo 'create abuseips hash:net family inet' > abuseips.ipset
 for i in $abuseips; do
     echo "add abuseips ${i}" >> abuseips.ipset
 done
-echo 'ip firewall address-list remove [find list=abuseips]' > abuseips.rsc
+echo 'ip firewall address-list remove [find list=Abuse]' > abuseips.rsc
 for i in $abuseips; do
-    echo "ip firewall address-list add list=abuseips address=${i}" >> abuseips.rsc
+    echo "ip firewall address-list add list=Abuse address=${i}" >> abuseips.rsc
 done
 
 wget -O misakaio_chnroutes4.txt https://cdn.jsdelivr.net/gh/misakaio/chnroutes2@master/chnroutes.txt
