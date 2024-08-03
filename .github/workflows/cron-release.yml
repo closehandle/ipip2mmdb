@@ -36,6 +36,7 @@ jobs:
         run: |
           mkdir publish
           cp -f Country.mmdb publish
+          cp -f abuseips publish
           cp -f abuseips.ipset publish
           cp -f abuseips.rsc publish
           cp -f chnroutes4 publish
